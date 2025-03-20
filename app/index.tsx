@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { Text, View,StyleSheet, TouchableOpacity } from "react-native";
 
 type LandingCardsProps={
@@ -5,7 +6,15 @@ type LandingCardsProps={
   subtitle:string
 };
 
+
+
 export default function Index() {
+  const router =useRouter();
+  
+  const onClickGo=()=>{
+    router.push('/auth/SingUp')
+  }
+
   return (
     <View
       style={{
@@ -32,7 +41,7 @@ export default function Index() {
      <LandingCards subtitle="Notificaciones de emergencia y anomalías" title="Alertas inteligentes"></LandingCards>
      <LandingCards subtitle="Gestiona múltiples miembros de la familia" title="Grupos familiares"></LandingCards>
      </View>
-     <ButtonFullWidh title="Vamos"/>
+     <ButtonFullWidh title="Vamos" action={onClickGo}/>
 
     </View>
   );
