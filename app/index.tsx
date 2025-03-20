@@ -23,7 +23,7 @@ export default function Index() {
         alignItems: "center",  
       }}
     >
-      <Text style={{...styles.title,fontFamily: 'ComicNeue-Regular'}}>
+      <Text style={{...styles.title}}>
         ProtectVida
       </Text>
       <Text style={{...styles.subtitle}}>
@@ -41,7 +41,7 @@ export default function Index() {
      <LandingCards subtitle="Notificaciones de emergencia y anomalías" title="Alertas inteligentes"></LandingCards>
      <LandingCards subtitle="Gestiona múltiples miembros de la familia" title="Grupos familiares"></LandingCards>
      </View>
-     <ButtonFullWidh title="Vamos" action={onClickGo}/>
+     <ButtonFullWidh disabled={false} title="Vamos" size={84} action={onClickGo}/>
 
     </View>
   );
@@ -71,10 +71,32 @@ function LandingCards(props:LandingCardsProps){
 
 }
 
-export function ButtonFullWidh(props:{title:string; action?: () => void }){
+export function ButtonFullWidh(props:{title:string; action?: () => void;size:Number;disabled:boolean}){
+  const stylesButton = StyleSheet.create({
+    
+    button :{
+      backgroundColor:props.disabled?"#64748B":"#3A72ED",
+      fontWeight:"bold",
+      textAlign:"center",
+    
+      height:48,
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center",
+      borderRadius: 10
+    },
+    buttonText :{
+      fontFamily:'roboto-regular',
+      fontSize:18,
+      color:"white"
+      ,fontWeight:"bold"
+      ,textAlign:"center"
+    }
+  })
+  
   return(
-    <TouchableOpacity onPress={props.action ?? (()=>{})} style={styles.button} >
-      <Text style={styles.buttonText}>
+    <TouchableOpacity  disabled={props.disabled} onPress={props.action ?? (()=>{})}  style={[stylesButton.button, { width: `${Number(props.size)}%` }]}  >
+      <Text style={stylesButton.buttonText}>
         {props.title}
       </Text>
     </TouchableOpacity>
@@ -130,22 +152,5 @@ const styles = StyleSheet.create({
     marginRight:14,
     borderRadius:25
   } ,
-  button:{
-    backgroundColor:"#3A72ED",
-    fontWeight:"bold",
-    textAlign:"center",
-    width:329,
-    height:48,
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius: 10
-  },
-  buttonText:{
-    fontFamily:'roboto-regular',
-    fontSize:18,
-    color:"white"
-    ,fontWeight:"bold"
-    ,textAlign:"center"
-  }
+
 })
