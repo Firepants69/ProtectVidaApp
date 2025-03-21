@@ -97,6 +97,7 @@ export default function SingUp() {
                 }}>Regístrate 
                 </Text>
               </TouchableOpacity>
+            
             </View>
             </View>
         </View>
