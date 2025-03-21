@@ -1,10 +1,11 @@
 
 import { View, Text, StyleSheet,TextInput } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Back from './Back';
-import {styles as inputStyle} from "../styles/TextInput"
+import {styles as inputStyle} from "../../styles/TextInput"
 import { ButtonFullWidh } from '../index';
+import { useTheme } from '../contexts/ThemeProvider';
 
 export default function SingIn() {
     const [isChecked, setChecked] = useState<boolean>(false);
@@ -12,7 +13,8 @@ export default function SingIn() {
     const [name,setName] = useState<string>("");
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
-
+    const { theme, isDark } = useTheme();
+    
     const checkForm=()=>{
         const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if(emailRegex.test(email) && (password.length>=8 && password.length <= 20) && name.length >= 10 && isChecked){
@@ -25,6 +27,31 @@ export default function SingIn() {
     useEffect(()=>{
         checkForm()
     },[email,password,name,isChecked])
+    const styles =  useMemo(()=>
+        StyleSheet.create({
+            container: {
+                flex:1,  
+                backgroundColor:theme.background,
+            },containerInputs:{
+                display:"flex",
+                padding:20,
+                gap:20
+            },
+            buttonPolicy:{
+                display:"flex",
+                flexDirection:"row",
+                gap:10,
+                marginTop:15,
+                marginBottom:10,
+                justifyContent:"center",
+                alignItems:"flex-start"
+            },checkbox:{
+                margin:0,
+                borderWidth:1,
+                borderColor:"#3A72ED"
+            }
+        })
+        ,[theme, isDark]);
 
     return (
         <View style={styles.container}>
@@ -68,26 +95,4 @@ export default function SingIn() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex:1,  
-        backgroundColor:"#F1F7FF",
-    },containerInputs:{
-        display:"flex",
-        padding:20,
-        gap:20
-    },
-    buttonPolicy:{
-        display:"flex",
-        flexDirection:"row",
-        gap:10,
-        marginTop:15,
-        marginBottom:10,
-        justifyContent:"center",
-        alignItems:"flex-start"
-    },checkbox:{
-        margin:0,
-        borderWidth:1,
-        borderColor:"#3A72ED"
-    }
-});
+

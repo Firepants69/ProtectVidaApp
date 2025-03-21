@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import React, { useEffect, useState } from "react";
 import Back from './Back';
 import { ButtonFullWidh } from '../index';
-import {styles as textInputStyle} from "../styles/TextInput"
+import {styles as textInputStyle} from "../../styles/TextInput"
 import { useRouter } from 'expo-router';
 
 export default function SingUp() {
