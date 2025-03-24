@@ -1,11 +1,12 @@
 
-import { View, Text, StyleSheet,TextInput } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import React, { useEffect, useMemo, useState } from "react";
 import Back from './Back';
-import {styles as inputStyle} from "../../styles/TextInput"
 import { ButtonFullWidh } from '../index';
-import { useTheme } from '../contexts/ThemeProvider';
+import { useTheme } from '../../contexts/ThemeProvider';
+import InputRegisterLogin from '../../components/InputRegisterLogin';
+
 
 export default function SingIn() {
     const [isChecked, setChecked] = useState<boolean>(false);
@@ -14,6 +15,8 @@ export default function SingIn() {
     const [email,setEmail] = useState<string>("");
     const [password,setPassword] = useState<string>("");
     const { theme, isDark } = useTheme();
+
+
     
     const checkForm=()=>{
         const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -27,12 +30,14 @@ export default function SingIn() {
     useEffect(()=>{
         checkForm()
     },[email,password,name,isChecked])
+
     const styles =  useMemo(()=>
         StyleSheet.create({
             container: {
                 flex:1,  
                 backgroundColor:theme.background,
             },containerInputs:{
+                marginTop:40,
                 display:"flex",
                 padding:20,
                 gap:20
@@ -49,7 +54,12 @@ export default function SingIn() {
                 margin:0,
                 borderWidth:1,
                 borderColor:"#3A72ED"
-            }
+            },text:{
+                fontFamily:'roboto-regular',
+                fontWeight:"bold",
+                fontSize:18,
+                color:theme.text
+              }
         })
         ,[theme, isDark]);
 
@@ -58,21 +68,19 @@ export default function SingIn() {
             <Back title='Crear cuenta'/>
             <View style={styles.containerInputs} >
                 <View>
-                <Text style={inputStyle.text}>Nombre completo</Text>
-                <TextInput onChangeText={val=> setName(val)} placeholderTextColor={"#64748B"} placeholder='Tu nombre' style={inputStyle.textInput}/>
+                <Text style={styles.text}>Nombre completo</Text>
+                <InputRegisterLogin isSecurity={false} onchange={setName} placeHolder='Tu nombre'/>
                 </View>
                 <View>
-                <Text style={inputStyle.text}>Correo electrónico</Text>
-                <TextInput 
-                onChangeText={val=> setEmail(val)}
-                placeholderTextColor={"#64748B"} placeholder='correo@gmail.com' style={inputStyle.textInput}/>
+                <Text style={styles.text}>Correo electrónico</Text>
+
+                <InputRegisterLogin isSecurity={false} placeHolder='correo@gmail.com' onchange={setEmail}/>
                 </View>
                 <View>
-                <Text style={inputStyle.text}>Contraseña</Text>
-                <TextInput 
-                onChangeText={val=> setPassword(val)}
-                placeholderTextColor={"#64748B"} placeholder='********' secureTextEntry={true} style={inputStyle.textInput}/>
-                <Text style={{color:"#64748B",fontSize:14,textAlign:"center"}}>
+                <Text style={styles.text}>Contraseña</Text>
+
+                <InputRegisterLogin isSecurity onchange={setPassword} placeHolder='********'/>
+                <Text style={{color:theme.subtitlecard,fontSize:14,textAlign:"center"}}>
                               La contraseña debe tener al menos 8 carácteres
                               </Text>
                 </View>
@@ -84,7 +92,7 @@ export default function SingIn() {
                         
                         />
                     <Text
-                    style={{fontWeight:"semibold",fontSize:15}}
+                    style={{fontWeight:"semibold",fontSize:15,color:theme.subtitlecard}}
                     >
                     Acepto los términos de servicio y la política de privacidad
                     </Text>

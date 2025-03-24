@@ -7,6 +7,8 @@ const lightTheme = {
   cardindex:"white",
   primary: "#6200ee",
   subtitlecard:"#6B7280",
+  textInputPlaceHolder:"#64748B",
+  textInputBorder:"#E2E8F0"
 };
 
 const darkTheme = {
@@ -14,7 +16,9 @@ const darkTheme = {
   text: "#ffffff",
   cardindex:"#141f27",
   primary: "#bb86fc",
-  subtitlecard:"white",
+  subtitlecard:"#A1ADB0",
+  textInputPlaceHolder:"gray",
+  textInputBorder:"#A1ADB0"
 };
 
 type Theme = {
@@ -23,6 +27,8 @@ type Theme = {
   text: string;
   primary: string;
   subtitlecard:string,
+  textInputPlaceHolder:string,
+  textInputBorder:string
 };
 
 type ThemeContextType = {

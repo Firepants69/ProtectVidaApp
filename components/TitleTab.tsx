@@ -1,16 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React, { useMemo } from "react";
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from 'expo-router';
-import { useTheme } from '../../contexts/ThemeProvider';
+import { useTheme } from '../contexts/ThemeProvider';
 
-export default function TitleTab(props:{title:string}) {
+export default function SingUp(props:{title:string}) {
     const router = useRouter();
     const { theme, isDark } = useTheme();
-    
-    const handleBack=()=>{
-        router.back()
-    }
+
 
     const styles = useMemo(()=>
         StyleSheet.create({
@@ -21,7 +17,7 @@ export default function TitleTab(props:{title:string}) {
                 
             },
             title: {
-                fontSize: 20,
+                fontSize: 32,
                 fontFamily:"roboto-regular",
                 color:theme.text,
                 fontWeight: 'bold',
@@ -51,11 +47,7 @@ export default function TitleTab(props:{title:string}) {
             <View style={
                 styles.containertitle
             }>
-            <TouchableOpacity
-            onPress={handleBack}
-            >
-            <AntDesign name="arrowleft" size={20} color={theme.text} />
-            </TouchableOpacity>
+         
             <Text style={styles.title}>
                 {props.title}
                 </Text>

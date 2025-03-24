@@ -1,19 +1,61 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Back from './Back';
 import { ButtonFullWidh } from '../index';
-import {styles as textInputStyle} from "../../styles/TextInput"
 import { useRouter } from 'expo-router';
+import { useTheme } from '../../contexts/ThemeProvider';
+import InputRegisterLogin from '../../components/InputRegisterLogin';
 
 export default function SingUp() {
     const [email,setEmail] = useState<string>("");
     const [passWord,setPassword] = useState<string>("");
     const [isDisabled,setIsDisabled] = useState<boolean>(true);
+    const { theme, isDark } = useTheme();
+    
+    const styles = useMemo(()=>
+      StyleSheet.create({
+        passwordView:{
+          flexDirection: "row",
+          flexWrap: "wrap", 
+          justifyContent: "space-between", 
+          padding: 10,
+          alignItems: "center", 
+        },
+        forgotPasswordText:{
+          color:"#356EEC",
+          fontSize:14,
+          fontWeight:"bold",
+        },
+        container: {
+            flex:1,  
+            backgroundColor:theme.background,
+        },
+        containerInputs:{
+          marginTop:60,
+          paddingHorizontal: 20,
+          gap:15
+        },
+        containerInput:{
+          gap:4
+        },
+        text:{
+          fontFamily:'roboto-regular',
+          color:theme.text,
+          fontWeight:"bold",
+          fontSize:18
+        },
+     
+    }),[theme,isDark])
+  
     
     const router = useRouter();
 
     const handleClickRegister=()=>{
         router.push('/auth/SingIn')
+    }
+
+    const handleClickRecoverPassword=()=>{
+      router.push('/auth/RecoverPassword')
     }
 
     const checkForm = ()=>{
@@ -39,11 +81,8 @@ export default function SingUp() {
               <Text style={styles.text}>
                 Correo electrónico
               </Text>
-              <TextInput placeholderTextColor={"#64748B"} style={textInputStyle.textInput} 
               
-              onChangeText={val => {
-                setEmail(val)
-              }}  placeholder='correo@gmail.com'/>
+              <InputRegisterLogin isSecurity={false} onchange={setEmail} placeHolder='correo@gmail.com' />
             </View>
             
             <View style={{paddingBottom:20}}>
@@ -51,23 +90,18 @@ export default function SingUp() {
                   <Text style={styles.text}>
                     Contraseña
                   </Text>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                  onPress={handleClickRecoverPassword}
+                  >
                     <Text style={styles.forgotPasswordText}>
                     ¿Olvidaste tu contraseña?  
                     </Text>  
                   </TouchableOpacity>   
                 </View>
-                <TextInput  
-                placeholderTextColor={"#64748B"} 
-                style={textInputStyle.textInput} 
-                onChangeText={val => {
-                  setPassword(val)
-                }} 
-                placeholder='********' 
-                secureTextEntry={true}/>
-
+                
+                <InputRegisterLogin isSecurity onchange={setPassword} placeHolder='********'/>
             </View>
-            <ButtonFullWidh disabled={isDisabled} title='Iniciar sesión' size={100}/>
+            <ButtonFullWidh action={()=>{  router.push('/(tabs)/location')}} disabled={isDisabled} title='Iniciar sesión' size={100}/>
             <View
             style={{
               paddingTop:10,
@@ -81,6 +115,7 @@ export default function SingUp() {
             <Text style={{
               textAlign:"center",
               fontFamily:'roboto-regular',
+              color:theme.text,
               fontSize:14,
               }}>
               ¿No tienes una cuenta? 
@@ -104,35 +139,3 @@ export default function SingUp() {
     );
 }
 
-const styles = StyleSheet.create({
-    passwordView:{
-      flexDirection: "row",
-      flexWrap: "wrap", 
-      justifyContent: "space-between", 
-      padding: 10,
-      alignItems: "center", 
-    },
-    forgotPasswordText:{
-      color:"#356EEC",
-      fontSize:14,
-      fontWeight:"bold",
-    },
-    container: {
-        flex:1,  
-        backgroundColor:"#F1F7FF",
-    },
-    containerInputs:{
-      marginTop:60,
-      paddingHorizontal: 20,
-      gap:15
-    },
-    containerInput:{
-      gap:4
-    },
-    text:{
-      fontFamily:'roboto-regular',
-      fontWeight:"bold",
-      fontSize:18
-    },
- 
-});

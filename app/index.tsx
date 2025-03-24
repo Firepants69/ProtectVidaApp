@@ -1,11 +1,13 @@
 import { useRouter } from "expo-router";
 import { Text, View,StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "./contexts/ThemeProvider";
-import { useEffect, useMemo } from "react";
+import { useTheme } from "../contexts/ThemeProvider";
+import {  useMemo } from "react";
+import { FontAwesome } from "@expo/vector-icons";
 
 type LandingCardsProps={
   title:string,
-  subtitle:string
+  subtitle:string,
+  icon?: React.ReactNode;
 };
 
 
@@ -52,7 +54,7 @@ export default function Index() {
         ProtectVida
       </Text>
       <Text style={{...indexStyles.subtitle}}>
-      Cuida la salud y seguridad de tu{"\n"} familia en un solo luga {"\n"}
+      Cuida la salud y seguridad de tu{"\n"} familia en un solo lugar {"\n"}
       ¿Lo harás?
       </Text>
      <View
@@ -61,10 +63,18 @@ export default function Index() {
       ,marginBottom:28
      }}
      >
-     <LandingCards subtitle="Seguimiento de signos vitales en tiempo real." title="Monitoreo de salud"></LandingCards>
-     <LandingCards subtitle="Localiza a tus seres queridos en cualquier momento." title="Ubicación en tiempo real"></LandingCards>
-     <LandingCards subtitle="Notificaciones de emergencia y anomalías" title="Alertas inteligentes"></LandingCards>
-     <LandingCards subtitle="Gestiona múltiples miembros de la familia" title="Grupos familiares"></LandingCards>
+     <LandingCards 
+     icon={<FontAwesome size={30}  name="heartbeat" color={theme.cardindex} />}
+     subtitle="Seguimiento de signos vitales en tiempo real." title="Monitoreo de salud"></LandingCards>
+     <LandingCards 
+     icon={<FontAwesome size={30}  name="location-arrow" color={theme.cardindex} />}
+     subtitle="Localiza a tus seres queridos en cualquier momento." title="Ubicación en tiempo real"></LandingCards>
+     <LandingCards 
+     icon={<FontAwesome size={30}  name="bell" color={theme.cardindex} />}
+     subtitle="Notificaciones de emergencia y anomalías" title="Alertas inteligentes"></LandingCards>
+     <LandingCards 
+     icon={<FontAwesome size={30}  name="group" color={theme.cardindex} />}
+     subtitle="Gestiona múltiples miembros de la familia" title="Grupos familiares"></LandingCards>
      </View>
      <ButtonFullWidh disabled={false} title="Vamos" size={84} action={onClickGo}/>
 
@@ -86,7 +96,7 @@ function LandingCards(props:LandingCardsProps){
         },
         subtitlecard: {
           fontFamily: "roboto-regular",
-          color: theme.text,
+          color: theme.subtitlecard,
           fontSize: 16,
           textAlign: "left",
           width: 200,
@@ -99,7 +109,7 @@ function LandingCards(props:LandingCardsProps){
           alignItems: "center",
           borderRadius: 10,
           height: 103,
-          shadowColor: theme.cardindex, 
+          shadowColor: theme.text, 
           shadowOpacity: 0.1,
           shadowRadius: 4,
           elevation: 3,
@@ -108,6 +118,9 @@ function LandingCards(props:LandingCardsProps){
           width: 50,
           height: 50,
           backgroundColor: "#D9D9D9", 
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center",
           marginRight: 14,
           borderRadius: 25,
         },
@@ -122,7 +135,7 @@ function LandingCards(props:LandingCardsProps){
       <View 
       style={stylesCard.imageCard}
       >
-        
+         {props.icon && props.icon}
       </View>
       <View >
         <Text style={stylesCard.titlecard}>
