@@ -5,6 +5,7 @@ import { ButtonFullWidh } from '../index';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../contexts/ThemeProvider';
 import InputRegisterLogin from '../../components/InputRegisterLogin';
+import BtnLoginGoogle from '../../components/BtnLoginGoogle';
 
 export default function SingUp() {
     const [email,setEmail] = useState<string>("");
@@ -102,6 +103,7 @@ export default function SingUp() {
                 <InputRegisterLogin isSecurity onchange={setPassword} placeHolder='********'/>
             </View>
             <ButtonFullWidh action={()=>{  router.push('/(tabs)/location')}} disabled={isDisabled} title='Iniciar sesión' size={100}/>
+            <BtnLoginGoogle/>
             <View
             style={{
               paddingTop:10,

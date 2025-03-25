@@ -28,7 +28,7 @@ export default function SingUp(props:{title:string}) {
                 shadowColor: theme.textInputBorder,
                 margin:0,
                 padding:0,
-                width: "120%", 
+                width: "100%", 
             },
             containertitle:{
                 marginLeft:5,
