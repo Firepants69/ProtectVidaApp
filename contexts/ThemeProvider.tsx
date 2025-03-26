@@ -8,7 +8,7 @@ const lightTheme = {
   primary: "#6200ee",
   subtitlecard:"#6B7280",
   textInputPlaceHolder:"#64748B",
-  textInputBorder:"#E2E8F0"
+  textInputBorder:"#d3d8de"
 };
 
 const darkTheme = {

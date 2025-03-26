@@ -151,11 +151,19 @@ function LandingCards(props:LandingCardsProps){
   
 }
 
-export function ButtonFullWidh(props:{title:string; action?: () => void;size:Number;disabled:boolean}){
+type Props = {
+  title: string;
+  action?: () => void;
+  size: number; // "number" con minúscula
+  disabled: boolean;
+  color?: string; // Permite cualquier string
+};
+
+export function ButtonFullWidh({ title, action, size, disabled, color = "#3A72ED" }: Props){
   const stylesButton = StyleSheet.create({
     
     button :{
-      backgroundColor:props.disabled?"#64748B":"#3A72ED",
+      backgroundColor:disabled?"#64748B":color,
       fontWeight:"bold",
       textAlign:"center",
     
@@ -175,9 +183,9 @@ export function ButtonFullWidh(props:{title:string; action?: () => void;size:Num
   })
   
   return(
-    <TouchableOpacity  disabled={props.disabled} onPress={props.action ?? (()=>{})}  style={[stylesButton.button, { width: `${Number(props.size)}%` }]}  >
+    <TouchableOpacity  disabled={disabled} onPress={action ?? (()=>{})}  style={[stylesButton.button, { width: `${Number(size)}%` }]}  >
       <Text style={stylesButton.buttonText}>
-        {props.title}
+        {title}
       </Text>
     </TouchableOpacity>
   )

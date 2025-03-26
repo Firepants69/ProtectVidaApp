@@ -1,9 +1,32 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,ScrollView } from 'react-native';
 import TitleTab from "../../components/TitleTab"
 import { useTheme } from '../../contexts/ThemeProvider';
 import { useMemo } from 'react';
 import { ButtonFullWidh } from '../index';
 import GroupsCard from '../../components/GroupsCard';
+import { GroupMember } from '../types';
+
+const member:Array<GroupMember>= [
+  {
+    accountId:1,
+    groupId:1,
+    isAdmin:true,
+    Name:"rafael"
+  },
+  {
+    accountId:1,
+    groupId:1,
+    isAdmin:true,
+    Name:"rafael merlin"
+  },
+  {
+    accountId:1,
+    groupId:1,
+    isAdmin:false,
+    Name:"Adrian "
+  }
+]
+
 export default function Groups() {
   const { theme, isDark } = useTheme();
 
@@ -26,10 +49,10 @@ export default function Groups() {
         padding:20,
       }}>
       <ButtonFullWidh size={100} title='Crear nuevo grupo' disabled={false} />
-      <View style={{marginTop:20, gap:15}}>
-      <GroupsCard/>
-      <GroupsCard/>
-      </View>
+      <ScrollView style={{marginTop:20}} contentContainerStyle={{ gap: 15 }}>
+ 
+      <GroupsCard members={member}/>
+      </ScrollView>
       </View>
     </View>
   );
